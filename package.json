@@ -1,0 +1,56 @@
+{
+  "name": "notype.ai",
+  "version": "1.0.0",
+  "main": "main.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "npx electron .",
+    "start-mock": "node start_mock.js",
+    "build": "electron-builder --win portable",
+    "build-single": "electron-builder --win nsis",
+    "test": "node test_api.js",
+    "install-deps": "node install.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Electron UI for NoType.ai Python application",
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.8.4",
+    "electron-store": "^8.2.0",
+    "express": "^4.21.2",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.3"
+  },
+  "build": {
+    "appId": "com.notype.ai",
+    "productName": "NoType.ai",
+    "files": [
+      "**/*",
+      "!**/node_modules/**/*",
+      "!**/.git/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "artifactName": "${productName}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "installerIcon": "assets/icon.png",
+      "uninstallerIcon": "assets/icon.png",
+      "deleteAppDataOnUninstall": true
+    },
+    "asar": true
+  }
+}

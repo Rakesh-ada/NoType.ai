@@ -1,0 +1,66 @@
+=============================================
+         NOTYPE.AI QUICK START GUIDE
+=============================================
+
+Thank you for using NoType.AI! This guide will help you get started quickly.
+
+-----------------
+PREREQUISITES
+-----------------
+- Windows 10 or higher
+- Node.js installed (v14.0 or higher)
+- Internet connection
+
+-----------------
+INSTALLATION
+-----------------
+1. Extract all files to a directory of your choice
+2. Run "install-dependencies.bat" to install required libraries
+3. Wait for the installation to complete
+
+-----------------
+FIRST LAUNCH
+-----------------
+1. Run "launch-notype.bat" to start the application
+2. On first launch, you'll need to enter an API key:
+   - Click on "Settings"
+   - Enter your API key in the designated field
+   - Click "Save"
+
+-----------------
+BASIC USAGE
+-----------------
+1. Type your prompt in the input box
+2. Click "Generate" or press Enter to get a response
+3. Use the "Copy" button to copy responses to clipboard
+4. View your response history in the "History" tab
+
+-----------------
+PROFILES & TONES
+-----------------
+- Change your active profile using the dropdown in Settings
+- Select different tones to customize the AI's response style
+- Customize profiles to suit different contexts (Office, Family, etc.)
+
+-----------------
+TROUBLESHOOTING
+-----------------
+If you encounter issues:
+1. Run "troubleshoot.bat" to check for missing files or configuration issues
+2. Make sure you've run "install-dependencies.bat" 
+3. Check INSTALLATION_README.txt for detailed troubleshooting steps
+4. Launch in debug mode with "launch-notype.bat --debug" for detailed error logs
+
+-----------------
+KEYBOARD SHORTCUTS
+-----------------
+- Enter: Generate response
+- Esc: Cancel generation
+- Ctrl+C: Copy selected text
+- Tab: Navigate between application sections
+
+-----------------
+NEED MORE HELP?
+-----------------
+See INSTALLATION_README.txt for more detailed information
+or PACKAGING_GUIDE.md for distribution instructions. 

@@ -1,0 +1,355 @@
+/* Basic Tailwind-like utility classes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-light: #60a5fa;
+  --secondary: #10b981;
+  --secondary-dark: #059669;
+  --secondary-light: #34d399;
+  --dark: #1f2937;
+  --dark-light: #374151;
+  --dark-darker: #111827;
+  --light: #f3f4f6;
+  --light-dark: #e5e7eb;
+  --light-darker: #d1d5db;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--light);
+  color: var(--dark);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+/* Components */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--light-dark);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-glass {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-dark);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  border: 1px solid var(--light-darker);
+  color: var(--dark);
+}
+
+.btn-ghost:hover {
+  background-color: var(--light);
+}
+
+.input, .textarea, .select {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--light-darker);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.input:focus, .textarea:focus, .select:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Futuristic UI elements */
+.glow {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+.gradient-bg {
+  background: linear-gradient(120deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+/* App-specific styles */
+header {
+  background-color: var(--dark);
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.response-container {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.response-text {
+  background-color: var(--light);
+  padding: 1rem;
+  border-radius: 0.375rem;
+  border-left: 3px solid var(--primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.settings-container {
+  display: none;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  background-color: var(--light-dark);
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.tab-button.active {
+  background-color: white;
+  font-weight: 500;
+}
+
+.notification {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 1rem;
+  background-color: var(--secondary);
+  color: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, opacity 0.3s;
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+.notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notification.error {
+  background-color: #ef4444;
+}
+
+/* Futuristic elements */
+.icon-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+}
+
+.icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--dark);
+    color: var(--light);
+  }
+  
+  .card {
+    background-color: var(--dark-light);
+    border-color: var(--dark-darker);
+  }
+  
+  .card-glass {
+    background-color: rgba(31, 41, 55, 0.8);
+    border-color: rgba(31, 41, 55, 0.2);
+  }
+  
+  .btn-ghost {
+    border-color: var(--dark-light);
+    color: var(--light);
+  }
+  
+  .btn-ghost:hover {
+    background-color: var(--dark-light);
+  }
+  
+  .input, .textarea, .select {
+    background-color: var(--dark-light);
+    border-color: var(--dark-darker);
+    color: var(--light);
+  }
+  
+  .tab-button {
+    background-color: var(--dark-darker);
+  }
+  
+  .tab-button.active {
+    background-color: var(--dark-light);
+  }
+  
+  .response-text {
+    background-color: var(--dark-darker);
+    border-left-color: var(--primary);
+  }
+} 

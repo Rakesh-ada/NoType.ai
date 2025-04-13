@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoType.ai</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Root variables for consistent spacing and sizing */
+    :root {
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 12px;
+      --space-lg: 16px;
+      --space-xl: 24px;
+      --card-padding: 16px;
+      --item-height: 36px;
+      --input-height: 40px;
+      --border-radius: 6px;
+      --window-width: 400px;
+      --window-height: 510px;
+      --header-height: 46px;
+      --main-height: calc(var(--window-height) - var(--header-height));
+      --clipboard-height: 120px; /* Adjusted for 3 items (36px × 3 = 108px + 12px padding) */
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, #0b0c10 0%, #1a1d29 100%);
+      color: #f5f5f5;
+      width: var(--window-width);
+      height: var(--window-height);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+    
+    header {
+      background: linear-gradient(to right, rgba(11, 12, 16, 0.95), rgba(31, 40, 51, 0.95));
+      backdrop-filter: blur(8px);
+      color: white;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(5, 217, 232, 0.3);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      z-index: 10;
+      height: var(--header-height);
+      flex-shrink: 0;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+      animation: headerGlow 4s infinite linear;
+    }
+    
+    @keyframes headerGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    
+    .app-title {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .app-title-glitch {
+      color: white;
+      position: relative;
+      display: inline-block;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 16px;
+    }
+    
+    .app-title-glitch::before {
+      content: "NoType.ai";
+      position: absolute;
+      left: 0;
+      text-shadow: -2px 0 var(--neon-pink);
+      top: 0;
+      color: white;
+      background: var(--dark-bg);
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+      animation: noise-anim-1 3s infinite linear alternate-reverse;
+    }
+    
+    .app-title-glitch::after {
+      content: "NoType.ai";
+      position: absolute;
+      left: 0;
+      text-shadow: 2px 0 var(--neon-blue);
+      top: 0;
+      color: white;
+      background: var(--dark-bg);
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+      animation: noise-anim-2 2s infinite linear alternate-reverse;
+    }
+    
+    @keyframes noise-anim-1 {
+      0% {
+        clip: rect(12px, 9999px, 52px, 0);
+      }
+      5% {
+        clip: rect(48px, 9999px, 24px, 0);
+      }
+      10% {
+        clip: rect(58px, 9999px, 98px, 0);
+      }
+      15% {
+        clip: rect(12px, 9999px, 86px, 0);
+      }
+      20% {
+        clip: rect(72px, 9999px, 22px, 0);
+      }
+      25% {
+        clip: rect(28px, 9999px, 34px, 0);
+      }
+      30% {
+        clip: rect(39px, 9999px, 9px, 0);
+      }
+      35% {
+        clip: rect(88px, 9999px, 33px, 0);
+      }
+      40% {
+        clip: rect(14px, 9999px, 56px, 0);
+      }
+      45% {
+        clip: rect(8px, 9999px, 5px, 0);
+      }
+      50% {
+        clip: rect(18px, 9999px, 7px, 0);
+      }
+      55% {
+        clip: rect(2px, 9999px, 35px, 0);
+      }
+      60% {
+        clip: rect(28px, 9999px, 43px, 0);
+      }
+      65% {
+        clip: rect(31px, 9999px, 94px, 0);
+      }
+      70% {
+        clip: rect(27px, 9999px, 59px, 0);
+      }
+      75% {
+        clip: rect(85px, 9999px, 29px, 0);
+      }
+      80% {
+        clip: rect(42px, 9999px, 67px, 0);
+      }
+      85% {
+        clip: rect(1px, 9999px, 15px, 0);
+      }
+      90% {
+        clip: rect(52px, 9999px, 8px, 0);
+      }
+      95% {
+        clip: rect(59px, 9999px, 42px, 0);
+      }
+      100% {
+        clip: rect(37px, 9999px, 91px, 0);
+      }
+    }
+    
+    @keyframes noise-anim-2 {
+      0% {
+        clip: rect(31px, 9999px, 21px, 0);
+      }
+      5% {
+        clip: rect(7px, 9999px, 44px, 0);
+      }
+      10% {
+        clip: rect(2px, 9999px, 27px, 0);
+      }
+      15% {
+        clip: rect(92px, 9999px, 44px, 0);
+      }
+      20% {
+        clip: rect(16px, 9999px, 31px, 0);
+      }
+      25% {
+        clip: rect(44px, 9999px, 35px, 0);
+      }
+      30% {
+        clip: rect(48px, 9999px, 6px, 0);
+      }
+      35% {
+        clip: rect(29px, 9999px, 6px, 0);
+      }
+      40% {
+        clip: rect(82px, 9999px, 32px, 0);
+      }
+      45% {
+        clip: rect(75px, 9999px, 63px, 0);
+      }
+      50% {
+        clip: rect(29px, 9999px, 13px, 0);
+      }
+      55% {
+        clip: rect(2px, 9999px, 35px, 0);
+      }
+      60% {
+        clip: rect(28px, 9999px, 43px, 0);
+      }
+      65% {
+        clip: rect(31px, 9999px, 94px, 0);
+      }
+      70% {
+        clip: rect(27px, 9999px, 59px, 0);
+      }
+      75% {
+        clip: rect(85px, 9999px, 29px, 0);
+      }
+      80% {
+        clip: rect(42px, 9999px, 67px, 0);
+      }
+      85% {
+        clip: rect(1px, 9999px, 15px, 0);
+      }
+      90% {
+        clip: rect(52px, 9999px, 8px, 0);
+      }
+      95% {
+        clip: rect(59px, 9999px, 42px, 0);
+      }
+      100% {
+        clip: rect(37px, 9999px, 91px, 0);
+      }
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      height: auto;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      flex: 1;
+    }
+    
+    main {
+      width: 100%;
+      height: var(--main-height);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex: 1;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    main::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    main::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.3);
+      border-radius: 4px;
+      margin: 4px 0;
+    }
+    
+    main::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #05788e, #01a382);
+      border-radius: 4px;
+      border: 1px solid rgba(5, 217, 232, 0.3);
+      box-shadow: inset 0 0 6px rgba(1, 255, 195, 0.2);
+    }
+    
+    main::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #06a0bc, #01a382);
+      box-shadow: inset 0 0 8px rgba(5, 217, 232, 0.5), 0 0 8px rgba(5, 217, 232, 0.3);
+    }
+    
+    .card {
+      background-color: rgba(15, 23, 42, 0.7);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      padding: var(--card-padding);
+      border-top: 1px solid rgba(5, 217, 232, 0.3);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: var(--space-md);
+      width: 100%;
+    }
+    
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(5, 217, 232, 0.5), transparent);
+      opacity: 0.5;
+    }
+    
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+    
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: var(--space-xs);
+      font-weight: 500;
+      color: var(--neon-blue);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
+    
+    select, input, textarea {
+      width: 100%;
+      height: var(--input-height);
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid #4b5563;
+      border-radius: var(--border-radius);
+      font-family: 'JetBrains Mono', monospace;
+      background-color: var(--dark-surface-2);
+      color: #e5e7eb;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      box-sizing: border-box;
+    }
+    
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2305d9e8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 30px !important;
+    }
+    
+    select:focus {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2301ffc3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='18 15 12 9 6 15'%3e%3c/polyline%3e%3c/svg%3e");
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    
+    button {
+      background: linear-gradient(45deg, #05788e, #017e65);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: visible;
+      box-shadow: var(--glow-blue);
+      white-space: nowrap;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    button:hover {
+      background: linear-gradient(45deg, #06a0bc, #01a382);
+      box-shadow: 0 0 20px rgba(5, 217, 232, 0.5);
+      transform: translateY(-1px);
+    }
+    
+    button.secondary {
+      background: linear-gradient(45deg, #303642, #444a5a);
+      box-shadow: none;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      height: 36px;
+    }
+    
+    button.secondary:hover {
+      background: linear-gradient(45deg, #3d4456, #545b70);
+      box-shadow: 0 0 15px rgba(75, 85, 99, 0.2);
+    }
+    
+    button.icon-btn {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid rgba(1, 255, 195, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: none;
+    }
+    
+    button.icon-btn:hover {
+      background: rgba(1, 255, 195, 0.1);
+      border-color: rgba(1, 255, 195, 0.5);
+      box-shadow: none;
+    }
+    
+    button.icon-btn:hover .svg-icon {
+      animation: spin 1.5s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .clipboard-history-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      height: var(--clipboard-height);
+      min-height: var(--clipboard-height);
+      max-height: var(--clipboard-height);
+      overflow-y: auto;
+      margin-bottom: var(--space-md);
+      padding-right: 4px;
+      position: relative;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .clipboard-history-list::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 15px;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.6), transparent);
+      pointer-events: none;
+      z-index: 2;
+      animation: fadeInOut 3s infinite ease-in-out;
+    }
+    
+    .clipboard-item {
+      background: rgba(1, 10, 20, 0.7);
+      border: 1px solid rgba(5, 217, 232, 0.2);
+      border-radius: var(--border-radius);
+      padding: 0 var(--space-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      height: var(--item-height);
+      max-height: var(--item-height);
+      min-height: var(--item-height);
+      overflow: hidden;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      width: calc(100% - 8px); /* Adjust width to account for scrollbar */
+    }
+    
+    .clipboard-item:hover {
+      background: rgba(5, 15, 25, 0.8);
+      border-color: rgba(5, 217, 232, 0.4);
+      box-shadow: 0 0 8px rgba(5, 217, 232, 0.15);
+      transform: translateY(-1px);
+    }
+    
+    .clipboard-item.selected {
+      background: rgba(5, 15, 25, 0.9);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 12px rgba(5, 217, 232, 0.3);
+    }
+    
+    .clipboard-content {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.9rem;
+      color: rgba(240, 240, 240, 0.9);
+      width: 100%;
+      line-height: var(--item-height);
+    }
+    
+    .clipboard-item.has-more::after {
+      content: none;
+      display: none;
+    }
+    
+    .clipboard-timestamp {
+      display: none;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      margin-top: var(--space-md);
+    }
+    
+    .action-buttons.center {
+      justify-content: center;
+      margin-top: var(--space-xl);
+    }
+    
+    .card .action-buttons.center {
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+    }
+    
+    .tab-buttons {
+      display: flex;
+      gap: 2px;
+      margin-bottom: var(--space-md);
+      border-bottom: 1px solid rgba(5, 217, 232, 0.2);
+      padding-bottom: 1px;
+    }
+    
+    .tab-button {
+      padding: 8px 14px;
+      background-color: rgba(15, 23, 42, 0.5);
+      border: none;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      color: #d1d5db;
+      transition: all 0.3s ease;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 1px;
+      font-size: 0.75rem;
+      position: relative;
+      top: 1px;
+    }
+    
+    .tab-button.active {
+      background: linear-gradient(to bottom, var(--neon-blue), rgba(5, 217, 232, 0.5));
+      color: white;
+      font-weight: bold;
+      border-bottom: 2px solid var(--neon-cyan);
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 18px;
+      border-radius: var(--border-radius);
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .notification.success {
+      background: linear-gradient(135deg, var(--neon-cyan), rgba(5, 217, 232, 0.8));
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(5, 217, 232, 0.5);
+      border: 1px solid rgba(5, 217, 232, 0.5);
+    }
+
+    .notification.error {
+      background: linear-gradient(135deg, var(--neon-pink), rgba(255, 42, 109, 0.8));
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 42, 109, 0.5);
+      border: 1px solid rgba(255, 42, 109, 0.5);
+    }
+    
+    .btn-futuristic {
+      background: linear-gradient(45deg, #05788e, #017e65) !important;
+      box-shadow: 0 0 15px rgba(5, 217, 232, 0.3);
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid rgba(5, 217, 232, 0.3);
+      position: relative;
+      min-width: 140px;
+      padding: 10px 18px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-futuristic:hover {
+      background: linear-gradient(45deg, #06a0bc, #01a382) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 0 25px rgba(5, 217, 232, 0.6);
+    }
+    
+    .clipboard-item.selected {
+      background-color: rgba(1, 255, 195, 0.15);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(1, 255, 195, 0.3);
+    }
+    
+    .clipboard-timestamp {
+      position: absolute;
+      bottom: 4px;
+      right: 8px;
+      font-size: 0.7rem;
+      color: var(--neon-cyan);
+      opacity: 0.7;
+      z-index: 1;
+    }
+    
+    .empty-history-message {
+      text-align: center;
+      padding: 20px;
+      color: #9ca3af;
+      font-style: italic;
+      border: 1px dashed rgba(5, 217, 232, 0.3);
+      border-radius: 4px;
+    }
+    
+    .refresh-history {
+      background: rgba(1, 10, 20, 0.4);
+      border: 1px solid rgba(5, 217, 232, 0.15);
+      color: var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: none;
+    }
+    
+    .refresh-history:hover {
+      background: rgba(5, 15, 25, 0.6);
+      border-color: rgba(5, 217, 232, 0.3);
+      transform: translateY(-1px);
+    }
+    
+    .refresh-icon {
+      animation: none;
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+    
+    .response-container {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    
+    .response-text {
+      background-color: rgba(15, 23, 42, 0.5);
+      padding: var(--space-lg);
+      border-radius: var(--border-radius);
+      color: #e5e7eb;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1.5;
+      position: relative;
+      overflow: hidden;
+      max-height: 220px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      padding-right: var(--space-lg);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .response-text::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 15px;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.8), transparent);
+      pointer-events: none;
+      z-index: 3;
+      animation: fadeInOut 3s infinite ease-in-out;
+    }
+    
+    .settings-container {
+      display: none;
+    }
+    
+    .terminal-prefix {
+      color: var(--neon-cyan);
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    
+    .blink {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    .btn-futuristic-alt {
+      background: linear-gradient(45deg, #05788e, #044457) !important;
+      box-shadow: 0 0 10px rgba(5, 217, 232, 0.3);
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid rgba(1, 255, 195, 0.3);
+      min-width: 100px;
+      padding: 8px 16px;
+      height: 40px;
+      border-radius: var(--border-radius);
+    }
+    
+    .btn-futuristic-alt:hover {
+      background: linear-gradient(45deg, #06a0bc, #055468) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(5, 217, 232, 0.5);
+    }
+    
+    /* SVG Icon Styles */
+    .svg-icon {
+      fill: none;
+      stroke: var(--neon-cyan);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: all 0.3s ease;
+      width: 18px;
+      height: 18px;
+    }
+    
+    .icon-btn:hover .svg-icon {
+      stroke: var(--neon-cyan);
+      stroke-width: 2;
+    }
+    
+    .clipboard-history {
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    .clipboard-history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-xs);
+      padding-bottom: var(--space-xs);
+      border-bottom: 1px solid rgba(5, 217, 232, 0.15);
+    }
+    
+    .clipboard-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 20px;
+      background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.9));
+      pointer-events: none;
+    }
+    
+    .clipboard-item.selected.truncated .clipboard-content::after {
+      background: linear-gradient(to right, transparent, rgba(1, 255, 195, 0.15) 40%);
+    }
+    
+    .clipboard-item:hover {
+      background-color: rgba(1, 255, 195, 0.1);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(1, 255, 195, 0.2);
+    }
+    
+    .clipboard-item.selected {
+      background-color: rgba(1, 255, 195, 0.15);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(1, 255, 195, 0.3);
+    }
+    
+    .clipboard-timestamp {
+      position: absolute;
+      bottom: 4px;
+      right: 8px;
+      font-size: 0.7rem;
+      color: var(--neon-cyan);
+      opacity: 0.7;
+      z-index: 1;
+    }
+    
+    .empty-history-message {
+      text-align: center;
+      padding: 20px;
+      color: #9ca3af;
+      font-style: italic;
+      border: 1px dashed rgba(5, 217, 232, 0.3);
+      border-radius: 4px;
+    }
+    
+    .refresh-history {
+      background: transparent;
+      border: none;
+      color: var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .refresh-history:hover {
+      background: rgba(1, 255, 195, 0.1);
+      box-shadow: 0 0 10px rgba(1, 255, 195, 0.3);
+    }
+    
+    .refresh-icon {
+      animation: none;
+      transition: all 0.3s ease;
+    }
+    
+    .refresh-history:hover .refresh-icon {
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      
+      .card {
+        padding: 15px;
+      }
+      
+      .tabs-container button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+      
+      .response-text {
+        padding: 15px;
+        font-size: 0.9rem;
+      }
+      
+      .btn-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .btn-container button {
+        width: 100%;
+      }
+    }
+    
+    .prompt-tone-group {
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 400px) {
+      :root {
+        --card-padding: 12px;
+        --space-md: 12px;
+        --item-height: 32px;
+        --input-height: 36px;
+      }
+      
+      .clipboard-content {
+        font-size: 0.75rem;
+      }
+      
+      .btn-futuristic {
+        min-width: 100px;
+        padding: 6px 12px;
+        height: 36px;
+      }
+      
+      label {
+        font-size: 0.75rem;
+      }
+    }
+    
+    /* Input focus states */
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 0 1px rgba(1, 255, 195, 0.1), 0 0 8px rgba(5, 217, 232, 0.4);
+      outline: none;
+    }
+    
+    /* Optimize settings form spacing */
+    #generalTab .form-group,
+    #profilesTab .form-group,
+    #shortcutsTab .form-group {
+      margin-bottom: 8px;
+    }
+    
+    /* Hidden scrollbar styling with preserved functionality */
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      background: transparent;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: transparent;
+      box-shadow: none;
+    }
+    
+    /* Apply scrollbar to specific containers */
+    main, .response-text, .clipboard-history-list {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+      overflow-y: auto;
+    }
+    
+    main::-webkit-scrollbar,
+    .response-text::-webkit-scrollbar,
+    .clipboard-history-list::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+      display: none;
+    }
+    
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+    
+    /* Enhance the scrollable areas with subtle hover effects */
+    .clipboard-history-list, .response-text {
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .clipboard-history-list:hover, .response-text:hover {
+      box-shadow: inset 0 -8px 10px -10px rgba(5, 217, 232, 0.3);
+    }
+    
+    .settings-button {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--neon-cyan);
+      border: 1px solid rgba(1, 255, 195, 0.3);
+      border-radius: var(--border-radius);
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: none;
+      cursor: pointer;
+    }
+    
+    .settings-button:hover {
+      background: rgba(1, 255, 195, 0.1);
+      border-color: rgba(1, 255, 195, 0.5);
+    }
+    
+    .settings-button:hover .svg-icon {
+      animation: spin 1.5s linear infinite;
+    }
+  </style>
+</head>
+<body class="dark-theme" id="appContainer">
+  <!-- Scanline effect overlay -->
+  <div class="scanline"></div>
+  
+  <header>
+    <div class="app-title">
+      <span class="app-title-glitch">NoType.ai</span>
+    </div>
+    <div class="nav-buttons">
+      <button id="settingsBtn" class="settings-button">
+        <svg width="18" height="18" viewBox="0 0 24 24" class="svg-icon">
+          <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"></path>
+          <path d="M19.4 15C19.2669 15.3016 19.2272 15.6362 19.286 15.9606C19.3448 16.285 19.4995 16.5843 19.73 16.82L19.79 16.88C19.976 17.0657 20.1235 17.2863 20.2241 17.5291C20.3248 17.7719 20.3766 18.0322 20.3766 18.295C20.3766 18.5578 20.3248 18.8181 20.2241 19.0609C20.1235 19.3037 19.976 19.5243 19.79 19.71C19.6043 19.896 19.3837 20.0435 19.1409 20.1441C18.8981 20.2448 18.6378 20.2966 18.375 20.2966C18.1122 20.2966 17.8519 20.2448 17.6091 20.1441C17.3663 20.0435 17.1457 19.896 16.96 19.71L16.9 19.65C16.6643 19.4195 16.365 19.2648 16.0406 19.206C15.7162 19.1472 15.3816 19.1869 15.08 19.32C14.7842 19.4468 14.532 19.6572 14.3543 19.9255C14.1766 20.1938 14.0813 20.5082 14.08 20.83V21C14.08 21.5304 13.8693 22.0391 13.4942 22.4142C13.1191 22.7893 12.6104 23 12.08 23C11.5496 23 11.0409 22.7893 10.6658 22.4142C10.2907 22.0391 10.08 21.5304 10.08 21V20.91C10.0723 20.579 9.96512 20.258 9.77251 19.9887C9.5799 19.7194 9.31074 19.5143 9 19.4C8.69838 19.2669 8.36381 19.2272 8.03941 19.286C7.71502 19.3448 7.41568 19.4995 7.18 19.73L7.12 19.79C6.93425 19.976 6.71368 20.1235 6.47088 20.2241C6.22808 20.3248 5.96783 20.3766 5.705 20.3766C5.44217 20.3766 5.18192 20.3248 4.93912 20.2241C4.69632 20.1235 4.47575 19.976 4.29 19.79C4.10405 19.6043 3.95653 19.3837 3.85588 19.1409C3.75523 18.8981 3.70343 18.6378 3.70343 18.375C3.70343 18.1122 3.75523 17.8519 3.85588 17.6091C3.95653 17.3663 4.10405 17.1457 4.29 16.96L4.35 16.9C4.58054 16.6643 4.73519 16.365 4.794 16.0406C4.85282 15.7162 4.81312 15.3816 4.68 15.08C4.55324 14.7842 4.34276 14.532 4.07447 14.3543C3.80618 14.1766 3.49179 14.0813 3.17 14.08H3C2.46957 14.08 1.96086 13.8693 1.58579 13.4942C1.21071 13.1191 1 12.6104 1 12.08C1 11.5496 1.21071 11.0409 1.58579 10.6658C1.96086 10.2907 2.46957 10.08 3 10.08H3.09C3.42099 10.0723 3.742 9.96512 4.0113 9.77251C4.28059 9.5799 4.48572 9.31074 4.6 9C4.73312 8.69838 4.77282 8.36381 4.714 8.03941C4.65519 7.71502 4.50054 7.41568 4.27 7.18L4.21 7.12C4.02405 6.93425 3.87653 6.71368 3.77588 6.47088C3.67523 6.22808 3.62343 5.96783 3.62343 5.705C3.62343 5.44217 3.67523 5.18192 3.77588 4.93912C3.87653 4.69632 4.02405 4.47575 4.21 4.29C4.39575 4.10405 4.61632 3.95653 4.85912 3.85588C5.10192 3.75523 5.36217 3.70343 5.625 3.70343C5.88783 3.70343 6.14808 3.75523 6.39088 3.85588C6.63368 3.95653 6.85425 4.10405 7.04 4.29L7.1 4.35C7.33568 4.58054 7.63502 4.73519 7.95941 4.794C8.28381 4.85282 8.61838 4.81312 8.92 4.68H9C9.29577 4.55324 9.54802 4.34276 9.72569 4.07447C9.90337 3.80618 9.99872 3.49179 10 3.17V3C10 2.46957 10.2107 1.96086 10.5858 1.58579C10.9609 1.21071 11.4696 1 12 1C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V3.09C14.0013 3.41179 14.0966 3.72618 14.2743 3.99447C14.452 4.26276 14.7042 4.47324 15 4.6C15.3016 4.73312 15.6362 4.77282 15.9606 4.714C16.285 4.65519 16.5843 4.50054 16.82 4.27L16.88 4.21C17.0657 4.02405 17.2863 3.87653 17.5291 3.77588C17.7719 3.67523 18.0322 3.62343 18.295 3.62343C18.5578 3.62343 18.8181 3.67523 19.0609 3.77588C19.3037 3.87653 19.5243 4.02405 19.71 4.21C19.896 4.39575 20.0435 4.61632 20.1441 4.85912C20.2448 5.10192 20.2966 5.36217 20.2966 5.625C20.2966 5.88783 20.2448 6.14808 20.1441 6.39088C20.0435 6.63368 19.896 6.85425 19.71 7.04L19.65 7.1C19.4195 7.33568 19.2648 7.63502 19.206 7.95941C19.1472 8.28381 19.1869 8.61838 19.32 8.92V9C19.4468 9.29577 19.6572 9.54802 19.9255 9.72569C20.1938 9.90337 20.5082 9.99872 20.83 10H21C21.5304 10 22.0391 10.2107 22.4142 10.5858C22.7893 10.9609 23 11.4696 23 12C23 12.5304 22.7893 13.0391 22.4142 13.4142C22.0391 13.7893 21.5304 14 21 14H20.91C20.5882 14.0013 20.2738 14.0966 20.0055 14.2743C19.7372 14.452 19.5268 14.7042 19.4 15Z"></path>
+        </svg>
+        <span>SETTINGS</span>
+      </button>
+    </div>
+  </header>
+  
+  <main class="data-mosh">
+    <!-- Prompt Section -->
+    <div id="promptSection" class="card glass-panel">
+      <div class="form-group">
+        <label for="profileSelect"><span class="terminal-prefix">&gt;</span>Profile:</label>
+        <select id="profileSelect" class="select">
+          <option value="Office">Office</option>
+          <option value="Friend">Friend</option>
+          <option value="Partner">Partner</option>
+          <option value="Family">Family</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <div class="clipboard-history-header">
+          <label><span class="terminal-prefix">&gt;</span>Recent Clipboard History:</label>
+          <button class="refresh-history" id="refreshClipboard">
+            <svg class="refresh-icon svg-icon" width="14" height="14" viewBox="0 0 24 24">
+              <path d="M23 4V10H17"></path>
+              <path d="M1 20V14H7"></path>
+              <path d="M3.51 9C4.01717 7.56597 4.87913 6.2885 6.01547 5.27549C7.1518 4.26247 8.52547 3.54432 10.0083 3.18692C11.4911 2.82952 13.0348 2.84686 14.5082 3.23624C15.9816 3.62563 17.3333 4.36973 18.44 5.4L23 10"></path>
+              <path d="M20.49 15C19.9828 16.434 19.1209 17.7115 17.9845 18.7245C16.8482 19.7375 15.4745 20.4557 13.9917 20.8131C12.5089 21.1705 10.9652 21.1531 9.49179 20.7638C8.01838 20.3744 6.66671 19.6303 5.56 18.6L1 14"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="clipboard-history-list" id="clipboardHistoryList">
+          <!-- Clipboard items will be dynamically populated here -->
+          <div class="clipboard-item">
+            <div class="clipboard-content">Hey there! Just checking in to see how you're doing today. Let me know if you want to catch up this weekend.</div>
+            <div class="clipboard-timestamp"></div>
+          </div>
+          <div class="clipboard-item selected">
+            <div class="clipboard-content">Hi Sarah, I've reviewed the proposal and I think it looks great. Let's discuss the timeline during tomorrow's meeting.</div>
+            <div class="clipboard-timestamp"></div>
+          </div>
+          <div class="clipboard-item">
+            <div class="clipboard-content">I apologize for the delay in getting back to you. I've been swamped with work but I'll have the report ready by end of day.</div>
+            <div class="clipboard-timestamp"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group prompt-tone-group">
+        <label for="promptTone"><span class="terminal-prefix">&gt;</span>How do you want to reply?</label>
+        <input type="text" id="promptTone" class="input" placeholder="E.g., 'professionally', 'funny', 'apologetic'...">
+      </div>
+      
+      <div class="action-buttons center">
+        <button id="generateBtn" class="btn-futuristic">GENERATE&nbsp;<span class="blink">|</span></button>
+      </div>
+    </div>
+    
+    <!-- Response Section -->
+    <div id="responseSection" class="card glass-panel response-container">
+      <div id="responseText" class="response-text"></div>
+      
+      <div class="action-buttons">
+        <button id="editBtn" class="secondary">EDIT</button>
+        <button id="copyBtn" class="btn-futuristic-alt">PASTE/COPY</button>
+      </div>
+    </div>
+    
+    <!-- Settings Section -->
+    <div id="settingsSection" class="card glass-panel settings-container">
+      <div class="tab-buttons">
+        <button class="tab-button active" data-tab="general">SYSTEM</button>
+        <button class="tab-button" data-tab="profiles">PROFILES</button>
+        <button class="tab-button" data-tab="shortcuts">COMMANDS</button>
+      </div>
+      
+      <div id="generalTab" class="tab-content">
+        <div class="form-group">
+          <label for="apiKeyInput"><span class="terminal-prefix">&gt;</span>API Key:</label>
+          <input type="password" id="apiKeyInput" class="input" placeholder="Your Gemini API Key">
+        </div>
+        
+        <div class="form-group">
+          <label for="defaultProfileSelect"><span class="terminal-prefix">&gt;</span>Default Profile:</label>
+          <select id="defaultProfileSelect" class="select">
+            <option value="Office">Office</option>
+            <option value="Friend">Friend</option>
+            <option value="Partner">Partner</option>
+            <option value="Family">Family</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="autoStartCheckbox">
+            <span class="terminal-prefix">&gt;</span>Start with Windows
+          </label>
+        </div>
+      </div>
+      
+      <div id="profilesTab" class="tab-content" style="display: none;">
+        <!-- Dynamic profile content will be added here -->
+      </div>
+      
+      <div id="shortcutsTab" class="tab-content" style="display: none;">
+        <p>The global shortcut to open the prompt window is <strong class="neon-text-cyan">Ctrl+Shift+T</strong></p>
+      </div>
+      
+      <div class="action-buttons">
+        <button id="cancelSettingsBtn" class="secondary">CLOSE</button>
+        <button id="saveSettingsBtn" class="btn-futuristic">SAVE</button>
+      </div>
+    </div>
+  </main>
+  
+  <div id="notification" class="notification"></div>
+  
+  <script src="renderer.js"></script>
+  <script src="mcp_ui.js"></script>
+  <script src="settings-fix.js"></script>
+  <script src="settings-enhancement.js"></script>
+</body>
+</html> 

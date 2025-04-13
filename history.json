@@ -1,0 +1,83 @@
+{
+  "clipboard_history": [
+    {
+      "text": "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=GEMINI_API_KEY\" \\\r\n-H 'Content-Type: application/json' \\\r\n-X POST \\\r\n-d '{\r\n  \"contents\": [{\r\n    \"parts\":[{\"text\": \"Explain how AI works\"}]\r\n    }]\r\n   }'",
+      "timestamp": "2025-04-12T08:27:10.233Z"
+    },
+    {
+      "text": "hi",
+      "timestamp": "2025-04-12T08:06:54.266Z"
+    },
+    {
+      "text": "hi",
+      "timestamp": "2025-04-12T07:53:44.333Z"
+    },
+    {
+      "text": "hello",
+      "timestamp": "2025-04-12T07:42:55.495Z"
+    },
+    {
+      "text": "hi\n",
+      "timestamp": "2025-04-12T07:06:31.784Z"
+    }
+  ],
+  "prompt_history": [
+    {
+      "text": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T08:27:10.233Z"
+    },
+    {
+      "text": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T08:06:54.266Z"
+    },
+    {
+      "text": "funny",
+      "profile": "Friend",
+      "timestamp": "2025-04-12T07:53:44.333Z"
+    },
+    {
+      "text": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T07:42:55.495Z"
+    },
+    {
+      "text": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T07:06:31.784Z"
+    }
+  ],
+  "response_history": [
+    {
+      "text": "Okay, so basically, AI is like teaching a computer to play fetch, but instead of a stick, it's data, and instead of a dog, it's... well, a computer. And sometimes, the computer brings back your slippers instead of the data... it's a work in progress.",
+      "prompt": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T08:27:10.233Z"
+    },
+    {
+      "text": "Well, hello there! Did you fall from heaven? Because so did Satan.",
+      "prompt": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T08:06:54.266Z"
+    },
+    {
+      "text": "Well, hello there! Did you fall from heaven? Because your face is kinda messed up. Just kidding! ...mostly. 😉",
+      "prompt": "funny",
+      "profile": "Friend",
+      "timestamp": "2025-04-12T07:53:44.333Z"
+    },
+    {
+      "text": "Well, that's a conversation starter if I've ever seen one! Did you need help with something or just practicing your ventriloquism?",
+      "prompt": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T07:42:55.495Z"
+    },
+    {
+      "text": "Well, hello there! Did you fall from heaven? Because I'm suddenly experiencing intense head trauma.",
+      "prompt": "funny",
+      "profile": "Office",
+      "timestamp": "2025-04-12T07:06:31.784Z"
+    }
+  ]
+}

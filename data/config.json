@@ -1,0 +1,18 @@
+{
+  "api_key": "AIzaSyDjonLXdO1u8KdXllXSiAsZB0VFXG2iRbU",
+  "default_profile": "Friend",
+  "profiles": [
+    "Office",
+    "Friend",
+    "Partner",
+    "Family"
+  ],
+  "tones": [
+    "Professional and concise",
+    "Friendly and casual",
+    "Funny and sarcastic",
+    "Apologetic and romantic"
+  ],
+  "auto_start": true,
+  "max_history": 5
+}
